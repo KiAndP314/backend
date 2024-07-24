@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,33 +38,37 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JWTGenerator jwtGenerator;
-
+    
 
     @PostMapping("login")
     public AuthResponseDto login(@RequestBody CredentialsDto loginDto)
     {
         Authentication user = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                loginDto.getUsername(),
+                loginDto.getEmail(),
                 loginDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(user);
 
+        User userPrincipal = (User) user.getPrincipal();
+
+        UserEntity u = userRepository.findByEmail(userPrincipal.getUsername()).get();
+
         String token = jwtGenerator.generateToken(user);
 
-        return new AuthResponseDto(token);
+        return new AuthResponseDto(token, u.getId());
     }
 
     @PostMapping("register")
     public ResponseEntity<String> register(@RequestBody CredentialsDto registerDto) 
     {
-        if (userRepository.existsByUsername(registerDto.getUsername())) 
+        if (userRepository.existsByEmail(registerDto.getEmail())) 
         {
             return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
         }
 
         UserEntity user = new UserEntity();
-        user.setUsername(registerDto.getUsername());
+        user.setEmail(registerDto.getEmail());
         user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
 
         Role roles = roleRepository.findByName("USER").get();
