@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,11 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.backend.auth.dto.AuthResponseDto;
 import com.generation.backend.auth.dto.CredentialsDto;
+import com.generation.backend.auth.dto.FullCredentialDTO;
 import com.generation.backend.auth.model.Role;
+import com.generation.backend.auth.model.UserAdditionalInfo;
 import com.generation.backend.auth.model.UserEntity;
 import com.generation.backend.auth.repository.RoleRepository;
+import com.generation.backend.auth.repository.UserAdditionalInfoRepository;
 import com.generation.backend.auth.repository.UserRepository;
 import com.generation.backend.auth.security.JWTGenerator;
+import com.generation.backend.service.AdditionalInfoService;
 
 @RestController
 @RequestMapping("/auth")
@@ -38,7 +41,10 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JWTGenerator jwtGenerator;
-    
+    @Autowired
+    private UserAdditionalInfoRepository uAIRepo;
+    @Autowired
+    private AdditionalInfoService additionalInfoService;
 
     @PostMapping("login")
     public AuthResponseDto login(@RequestBody CredentialsDto loginDto)
@@ -47,8 +53,6 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(
                 loginDto.getEmail(),
                 loginDto.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(user);
 
         User userPrincipal = (User) user.getPrincipal();
 
@@ -60,7 +64,7 @@ public class AuthController {
     }
 
     @PostMapping("register")
-    public ResponseEntity<String> register(@RequestBody CredentialsDto registerDto) 
+    public ResponseEntity<String> register(@RequestBody FullCredentialDTO registerDto) 
     {
         if (userRepository.existsByEmail(registerDto.getEmail())) 
         {
@@ -74,7 +78,12 @@ public class AuthController {
         Role roles = roleRepository.findByName("USER").get();
         user.setRoles(Collections.singletonList(roles));
 
-        userRepository.save(user);
+        user = userRepository.save(user);
+
+        UserAdditionalInfo uAI = additionalInfoService.toEntity(registerDto);
+
+        uAI.setUser(user);
+        uAIRepo.save(uAI);
 
         return new ResponseEntity<>("User registered success!", HttpStatus.OK);
     }
