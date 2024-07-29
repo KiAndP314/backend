@@ -17,6 +17,7 @@ import com.generation.backend.auth.model.UserEntity;
 import com.generation.backend.auth.repository.UserAdditionalInfoRepository;
 import com.generation.backend.auth.repository.UserRepository;
 import com.generation.backend.dto.UserInfoDTO;
+import com.generation.backend.dto.UtenteDTO;
 import com.generation.backend.exception.NotYourUserException;
 import com.generation.backend.exception.UserNotFoundException;
 import com.generation.backend.service.AdditionalInfoService;
@@ -56,7 +57,7 @@ public class UserAdditionalInfoController {
     }
 
     @GetMapping("/{id}")
-    public UserInfoDTO getId(@PathVariable Integer id) {
+    public UtenteDTO getId(@PathVariable Integer id) { // era UserInfoDTO
         
             Optional<UserAdditionalInfo> res = additionalInfoRepo.findByUserId(id);
             // se non lo trova da una NoSuchElementException()

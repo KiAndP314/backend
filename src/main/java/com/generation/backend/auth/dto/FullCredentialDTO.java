@@ -9,5 +9,4 @@ public class FullCredentialDTO {
     private String nome;
     private String cognome;
     private String dob;
-
 }
