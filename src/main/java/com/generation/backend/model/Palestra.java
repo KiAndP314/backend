@@ -20,11 +20,11 @@ public class Palestra {
     private String nome;
     private String indirizzo;
 
-    @OneToMany(mappedBy = "palestra")
-    private List<Corso> corsi = new ArrayList<>();
+    // @OneToMany(mappedBy = "palestra")
+    // private List<Corso> corsi = new ArrayList<>();
 
-    @OneToMany(mappedBy = "palestra")
-    private List<Abbonamento> abbonamenti = new ArrayList<>();
+    // @OneToMany(mappedBy = "palestra")
+    // private List<Abbonamento> abbonamenti = new ArrayList<>();
 
     // @OneToMany(mappedBy = "palestra")
     // private List<UserAdditionalInfo> users = new ArrayList<>();

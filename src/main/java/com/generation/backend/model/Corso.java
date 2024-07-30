@@ -29,9 +29,9 @@ public class Corso {
     // private String durata;
     // private String orari;
 
-    @ManyToOne
-    @JoinColumn(name = "palestra_id")
-    private Palestra palestra;
+    // @ManyToOne
+    // @JoinColumn(name = "palestra_id")
+    // private Palestra palestra;
 
     @OneToMany(mappedBy = "corso")
     private List<Abbonamento> abbonamenti = new ArrayList<>();
