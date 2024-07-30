@@ -16,7 +16,7 @@ public interface UAIMapper {
     // public UserAdditionalInfo toEntity(FullCredentialDTO fullCredentialDTO);
 
     @Mapping(source = "user.email", target = "email")
-    @Mapping(source = "palestra.nome", target = "nomePalestra")
+    // @Mapping(source = "palestra.nome", target = "nomePalestra")
     public UtenteDTO toDTO(UserAdditionalInfo userAdditionalInfo);
 
     

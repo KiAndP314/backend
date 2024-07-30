@@ -13,9 +13,10 @@ public class UtenteDTO {
     private String dob;
     private Boolean certificato;
 
-    private String nomePalestra;
-
     private List<AbbonamentoDTO> abbonamenti = new ArrayList<>();
+
+    // private String nomePalestra;
+    // private List<String> nomiCorsi;
 
     // private List<CorsoDTO> corsi = new ArrayList<>();
 }

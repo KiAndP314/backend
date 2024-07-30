@@ -19,12 +19,14 @@ public class Corso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    private String dataInizio;
-    private String dataFine;
-    private String durata;
-    private Integer numeroMax;
+    private String dataInizio; // 
+    private String dataFine;   // 
     private Double prezzo;
     private String descrizione;
+    private String img;
+    private String orari;
+    // private Integer numeroMax;
+    // private String durata;
     // private String orari;
 
     @ManyToOne
