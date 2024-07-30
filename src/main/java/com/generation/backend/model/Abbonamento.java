@@ -24,7 +24,7 @@ public class Abbonamento {
     @JoinColumn(name = "user_id")
     private UserAdditionalInfo user;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "palestra_id")
     private Palestra palestra;
 

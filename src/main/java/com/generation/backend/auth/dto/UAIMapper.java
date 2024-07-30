@@ -23,7 +23,7 @@ public interface UAIMapper {
     @Mapping(target = "abbonamenti", ignore = true)
     @Mapping(target = "certificato", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "palestra", ignore = true)
+    // @Mapping(target = "palestra", ignore = true)
     @Mapping(target = "user", ignore = true)
     UserAdditionalInfo toEntity(FullCredentialDTO fullCredentialDTO);
 

@@ -3,8 +3,6 @@ package com.generation.backend.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.generation.backend.auth.model.UserAdditionalInfo;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +24,9 @@ public class Palestra {
     private List<Corso> corsi = new ArrayList<>();
 
     @OneToMany(mappedBy = "palestra")
-    private List<UserAdditionalInfo> users = new ArrayList<>();
+    private List<Abbonamento> abbonamenti = new ArrayList<>();
+
+    // @OneToMany(mappedBy = "palestra")
+    // private List<UserAdditionalInfo> users = new ArrayList<>();
     
 }

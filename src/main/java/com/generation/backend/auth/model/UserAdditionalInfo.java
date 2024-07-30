@@ -31,13 +31,13 @@ public class UserAdditionalInfo {
     @OneToMany(mappedBy = "user")
     private List<Abbonamento> abbonamenti = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "palestra_id")
-    private Palestra palestra;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;
+
+    // @ManyToOne
+    // @JoinColumn(name = "palestra_id")
+    // private Palestra palestra;
 
     // public void setUserEntity(UserEntity userEntity) {
     //     this.user = userEntity;
