@@ -64,7 +64,8 @@ public class UserAdditionalInfoController {
     
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             String username = auth.getName();
-
+            System.out.println(username);
+            System.out.println(res.get().getUser().getEmail());
             if (res.isEmpty())
                 throw new UserNotFoundException("Utente con id: " + id + " non presente");
 
