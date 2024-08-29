@@ -3,6 +3,7 @@ package com.generation.backend.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +23,10 @@ public class Corso {
     private String dataInizio; // 
     private String dataFine;   // 
     private Double prezzo;
+    
+    @Column(columnDefinition = "TEXT")
     private String descrizione;
+    
     private String img;
     private String orari;
     // private Integer numeroMax;

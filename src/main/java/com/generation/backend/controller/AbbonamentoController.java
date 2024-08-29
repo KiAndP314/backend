@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.generation.backend.auth.dto.mapper.AbbonamentoMapper;
 import com.generation.backend.auth.model.UserAdditionalInfo;
 import com.generation.backend.auth.repository.UserAdditionalInfoRepository;
+import com.generation.backend.dto.AbbonamentoDTO;
 import com.generation.backend.dto.RequestAbbonamentoDTO;
 import com.generation.backend.model.Abbonamento;
 import com.generation.backend.model.Corso;
@@ -27,8 +29,9 @@ public class AbbonamentoController {
     @Autowired
     private CorsoRepository corsoRepo;
 
+
     @PostMapping
-    public String abbonamento(@RequestBody RequestAbbonamentoDTO requestAbbonamentoDTO) {
+    public AbbonamentoDTO abbonamento(@RequestBody RequestAbbonamentoDTO requestAbbonamentoDTO) {
 
         Abbonamento res = new Abbonamento();
 
@@ -39,6 +42,6 @@ public class AbbonamentoController {
         res.setCorso(corso);
 
         abbonamentoRepository.save(res);
-        return "Abbonamento registrato";
+        return AbbonamentoMapper.INSTANCE.toDTO(res);
     }
 }
