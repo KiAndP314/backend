@@ -6,4 +6,5 @@ import com.generation.backend.model.Abbonamento;
 
 public interface AbbonamentoRepository extends JpaRepository<Abbonamento, Integer>{
 
+
 }
