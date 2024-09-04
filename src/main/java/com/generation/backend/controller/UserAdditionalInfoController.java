@@ -57,12 +57,12 @@ public class UserAdditionalInfoController {
     }
 
     @GetMapping("/{id}")
-    public UtenteDTO getId(@PathVariable Integer id) { // era UserInfoDTO
+    public UtenteDTO getId(@PathVariable Integer id) { // era UserInfoDTO / funziona per un unica request
         
             Optional<UserAdditionalInfo> res = additionalInfoRepo.findByUserId(id);
             // se non lo trova da una NoSuchElementException()
     
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication(); // utente estratto dal token che mi manda il client, nasce con la request muore dopo produzione di resoponse, a scopo di request, durata di vita = al tempo di processione request response
             String username = auth.getName();
 
             if (res.isEmpty())
